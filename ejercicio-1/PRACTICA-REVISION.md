@@ -135,7 +135,17 @@ if (subtotalAfterDiscount > 200)  // ¿Debería ser >= 200?
 2. **Ejecutar casos de prueba** usando `SupermarketAPI.http`
 3. **Documentar hallazgos** y errores encontrados
 4. **Proponer correcciones** específicas
-5. **Crear PR** con feedback detallado
+5. **Crear Pull Request** desde `feature/tax-and-shipping` → `dev`
+
+## 🔄 Flujo de Git Establecido
+
+```
+main (producción)
+├── dev (desarrollo/integración)
+    ├── feature/tax-and-shipping (feature branch)
+```
+
+**Pull Request Target**: `feature/tax-and-shipping` → `dev`
 
 ## 📊 Métricas de Éxito
 
