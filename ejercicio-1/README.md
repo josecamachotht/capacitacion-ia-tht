@@ -204,10 +204,37 @@ Este proyecto está bajo la Licencia MIT - mira el archivo [LICENSE](LICENSE) pa
 - [ ] Tests unitarios e integración
 - [ ] CI/CD pipeline
 
+## 🧮 Sistema de Cálculo de Órdenes
+
+### Funcionalidad Agregada
+El proyecto incluye un sistema completo de cálculo de impuestos y costos de envío:
+
+#### Reglas de Negocio Implementadas:
+1. **Impuestos**: 8% para clientes locales, 15% para clientes internacionales
+2. **Envío**: $10 fijo, pero **GRATUITO** para órdenes con total >= $200
+3. **Descuentos**: 5% de descuento aplicado solo a productos promocionales
+4. **Procesamiento Asíncrono**: Preparado para futuras integraciones con APIs externas
+
+#### Endpoints de Órdenes:
+- `POST /api/orders/calculate` - Calcula impuestos y envío para una orden
+- `GET /api/orders/sample` - Genera una orden de ejemplo para pruebas
+
+#### Casos de Prueba Críticos:
+- **Caso Edge**: Orden de exactamente $200 (debe tener envío gratuito)
+- **Cliente Local**: Con productos normales y promocionales
+- **Cliente Internacional**: Con mayores tasas de impuestos
+
+### ⚠️ Nota para Revisión de Código
+Este código fue generado con asistencia de IA y requiere revisión humana especializada para validar:
+- Lógica de negocio correcta
+- Casos edge y condiciones de frontera
+- Manejo de errores y validaciones
+
 ## 🐛 Problemas conocidos
 
 - Configurar la cadena de conexión de PostgreSQL según tu entorno local
 - Asegúrate de que la base de datos esté creada antes de ejecutar las migraciones
+- **REVISAR**: Validar lógica de envío gratuito en casos edge (>= $200)
 
 ## 📞 Soporte
 
