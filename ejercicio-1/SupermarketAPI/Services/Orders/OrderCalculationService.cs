@@ -57,7 +57,7 @@ namespace SupermarketAPI.Services.Orders
 
             // Calcular costo de envío
             // Envío gratuito para órdenes >= $200
-            if (subtotalAfterDiscount > 200)
+            if (subtotalAfterDiscount >= 200)
             {
                 result.ShippingCost = 0; // Envío gratuito
             }
