@@ -56,8 +56,8 @@ namespace SupermarketAPI.Services.Orders
             result.TaxAmount = subtotalAfterDiscount * taxRate;
 
             // Calcular costo de envío
-            // ERROR INTENCIONAL: Debería ser >= 200 pero está implementado como > 200
-            if (subtotalAfterDiscount > 200)
+            // Envío gratuito para órdenes >= $200
+            if (subtotalAfterDiscount >= 200)
             {
                 result.ShippingCost = 0; // Envío gratuito
             }
