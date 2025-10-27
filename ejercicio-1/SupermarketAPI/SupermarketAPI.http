@@ -1,0 +1,109 @@
+@SupermarketAPI_HostAddress = https://localhost:7146
+
+### Get all products
+GET {{SupermarketAPI_HostAddress}}/api/products
+
+### Get product by ID
+GET {{SupermarketAPI_HostAddress}}/api/products/1
+
+### Get products by category
+GET {{SupermarketAPI_HostAddress}}/api/products/category/Lácteos
+
+### Get product by barcode
+GET {{SupermarketAPI_HostAddress}}/api/products/barcode/7501234567890
+
+### Create a new product
+POST {{SupermarketAPI_HostAddress}}/api/products
+Content-Type: application/json
+
+{
+  "name": "Yogurt Natural",
+  "description": "Yogurt natural sin azúcar, 150g",
+  "price": 1.75,
+  "category": "Lácteos",
+  "stock": 30,
+  "barcode": "7501234567893"
+}
+
+### Update a product
+PUT {{SupermarketAPI_HostAddress}}/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Leche Entera 1L - Actualizada",
+  "description": "Leche entera pasteurizada en envase de cartón de 1 litro - Precio actualizado",
+  "price": 2.75,
+  "category": "Lácteos",
+  "stock": 45,
+  "barcode": "7501234567890",
+  "isActive": true
+}
+
+### Delete a product (soft delete)
+DELETE {{SupermarketAPI_HostAddress}}/api/products/3
+
+### ===== ORDER CALCULATION ENDPOINTS =====
+
+### Get sample order for testing
+GET {{SupermarketAPI_HostAddress}}/api/orders/sample
+
+### Calculate tax and shipping for local customer (should be FREE shipping at exactly $200)
+POST {{SupermarketAPI_HostAddress}}/api/orders/calculate
+Content-Type: application/json
+
+{
+  "orderId": 1001,
+  "customerLocation": "Local",
+  "items": [
+    {
+      "productId": 1,
+      "productName": "Leche Entera 1L",
+      "price": 100.00,
+      "quantity": 2,
+      "productType": "Normal"
+    }
+  ]
+}
+
+### Calculate tax and shipping for international customer with promotional items
+POST {{SupermarketAPI_HostAddress}}/api/orders/calculate
+Content-Type: application/json
+
+{
+  "orderId": 1002,
+  "customerLocation": "International",
+  "items": [
+    {
+      "productId": 1,
+      "productName": "Leche Entera 1L",
+      "price": 2.50,
+      "quantity": 2,
+      "productType": "Normal"
+    },
+    {
+      "productId": 2,
+      "productName": "Pan Integral - Promoción",
+      "price": 3.25,
+      "quantity": 10,
+      "productType": "Promotional"
+    }
+  ]
+}
+
+### Test edge case: Order total exactly $200 (should reveal the bug - will charge shipping when it shouldn't)
+POST {{SupermarketAPI_HostAddress}}/api/orders/calculate
+Content-Type: application/json
+
+{
+  "orderId": 1003,
+  "customerLocation": "Local",
+  "items": [
+    {
+      "productId": 1,
+      "productName": "Producto Exacto",
+      "price": 200.00,
+      "quantity": 1,
+      "productType": "Normal"
+    }
+  ]
+}
